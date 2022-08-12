@@ -1,0 +1,11 @@
+
+POST http://localhost:3000/api/students
+Content-Type: application/json
+
+{
+  "firstName": "Bojan",
+  "lastName": "Marković",
+  "indexNumber": "01-2019",
+  "email": "boj.markovic@hotmail.com",
+  "phone": "+387 65 999 999"
+}
