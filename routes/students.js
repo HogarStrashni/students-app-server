@@ -2,16 +2,51 @@ const express = require("express");
 const router = express.Router();
 const Student = require("../model/student");
 const Exam = require("../model/exam");
-const student = require("../model/student");
 
-//Getting all students
+// Getting all students
 router.get("/students", async (req, res) => {
   try {
     const allStudents = await Student.find();
-
     res.status(200).json(allStudents);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+});
+
+router.post("/students", async (req, res) => {
+  try {
+    const allStudents = await Student.find();
+    const filteredStudents = allStudents.filter(
+      (item) =>
+        item.firstName
+          .toString()
+          .toLowerCase()
+          .includes(req.body.query.toString().toLowerCase()) ||
+        item.lastName
+          .toString()
+          .toLowerCase()
+          .includes(req.body.query.toString().toLowerCase()) ||
+        item.indexNumber
+          .toString()
+          .toLowerCase()
+          .includes(req.body.query.toString().toLowerCase()) ||
+        item.email
+          .toString()
+          .toLowerCase()
+          .includes(req.body.query.toString().toLowerCase()) ||
+        item.phone
+          .toString()
+          .toLowerCase()
+          .includes(req.body.query.toString().toLowerCase())
+    );
+
+    if (!req.body.query) {
+      res.status(200).json(allStudents);
+    } else {
+      res.status(200).json(filteredStudents);
+    }
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
 
