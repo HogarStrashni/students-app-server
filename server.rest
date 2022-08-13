@@ -18,7 +18,7 @@ Content-Type: application/json
 ###
 
 //GET unique Student
-GET http://localhost:3000/api/student/62f62ae652ae0f0abc644619
+GET http://localhost:3000/api/student/62f7a2418be45e3779da5dd2
 
 ###
 
