@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
-const gradeSchema = new mongoose.Schema({
-  subject: {
-    type: String,
+const gradeSchema = new mongoose.Schema(
+  {
+    subject: {
+      type: String,
+    },
+    grade: { type: String, default: "" },
+    dateExam: { type: String, default: "" },
   },
-  grade: { type: String, default: "" },
-  dateExam: { type: String, default: "" },
-});
+  { _id: false }
+);
 
 const studentSchema = new mongoose.Schema({
   firstName: {
