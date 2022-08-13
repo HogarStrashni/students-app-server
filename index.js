@@ -18,3 +18,5 @@ const studentsRouter = require("./routes/students");
 app.use("/api", studentsRouter);
 
 app.listen(process.env.PORT || 3000, () => console.log("Server Started"));
+
+module.exports = app;
