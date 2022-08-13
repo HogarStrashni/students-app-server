@@ -1,15 +1,10 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "index.js",
-      "use": "@now/node"
-    }
-  ],
+  "version": 3,
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "index.js"
+      "status": 307,
+      "headers": { "Location": "https://example.com/$1" }
     }
   ]
 }
