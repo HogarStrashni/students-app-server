@@ -1,16 +1,16 @@
 //GET all Students
-GET http://localhost:3000/api/students
+GET https://students-app-server-plum.vercel.app/api/students
 
 ###
 
 //POST new Student
-POST http://localhost:3000/api/students
+POST https://students-app-server-plum.vercel.app/api/students
 Content-Type: application/json
 
 {
-  "firstName": "Bojan",
-  "lastName": "Marković",
-  "indexNumber": "01-2019",
+  "firstName": "Bojana",
+  "lastName": "Goranovic",
+  "indexNumber": "09-2019",
   "email": "boj.markovic@hotmail.com",
   "phone": "+387 65 999 999"
 }
@@ -52,7 +52,7 @@ Content-Type: application/json
 ###
 
 //QUERING Students
-POST http://localhost:3000/api/students
+POST https://students-app-server-plum.vercel.app/api/students
 Content-Type: application/json
 
 {

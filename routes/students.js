@@ -5,12 +5,6 @@ const Exam = require("../model/exam");
 
 // Getting all students
 router.get("/students", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   try {
     const allStudents = await Student.find();
     res.status(200).json(allStudents);
@@ -19,13 +13,8 @@ router.get("/students", async (req, res) => {
   }
 });
 
+// Finding students by filter
 router.post("/students", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   try {
     const allStudents = await Student.find();
     const filteredStudents = allStudents.filter(
@@ -64,27 +53,22 @@ router.post("/students", async (req, res) => {
 
 // Creating new student
 router.post("/students", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   try {
     const exams = await Exam.find();
+    const allGrades = exams.map((item) => {
+      return {
+        subject: item.name,
+        grade: "",
+        dateExam: "",
+      };
+    });
     const student = new Student({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       indexNumber: req.body.indexNumber,
       email: req.body.email,
       phone: req.body.phone,
-      gradeHistory: exams.map((item) => {
-        return {
-          subject: item.name,
-          grade: "",
-          dateExam: "",
-        };
-      }),
+      gradeHistory: allGrades,
     });
     const newStudent = await student.save();
     res.status(201).json(newStudent);
@@ -95,23 +79,11 @@ router.post("/students", async (req, res) => {
 
 // Getting one student
 router.get("/student/:id", getStudent, (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   res.json(res.student);
 });
 
 // Updating one student
 router.patch("/student/:id", getStudent, async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   try {
     if (req.body.firstName != null) {
       res.student.firstName = req.body.firstName;
@@ -141,12 +113,6 @@ router.patch("/student/:id", getStudent, async (req, res) => {
 
 // Delete one student
 router.delete("/student/:id", getStudent, async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   try {
     await res.student.remove();
     res.json({ message: "Deleted Student" });
@@ -156,12 +122,6 @@ router.delete("/student/:id", getStudent, async (req, res) => {
 });
 
 async function getStudent(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header("Access-Control-Max-Age", "1800");
-  res.header("Access-Control-Allow-Headers", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-
   let student;
   try {
     student = await Student.findOne({ indexNumber: req.params.id });
