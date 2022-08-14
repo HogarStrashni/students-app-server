@@ -3,7 +3,8 @@ const router = express.Router();
 const Student = require("../model/student");
 const Exam = require("../model/exam");
 
-const setHeaderObj = () => {
+// Getting all students
+router.get("/students", async (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Max-Age", "1800");
@@ -12,11 +13,6 @@ const setHeaderObj = () => {
     "Access-Control-Allow-Methods",
     "PUT, POST, GET, DELETE, PATCH, OPTIONS"
   );
-};
-
-// Getting all students
-router.get("/students", async (req, res) => {
-  setHeaderObj();
 
   try {
     const allStudents = await Student.find();
@@ -27,7 +23,14 @@ router.get("/students", async (req, res) => {
 });
 
 router.post("/students", async (req, res) => {
-  setHeaderObj();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   try {
     const allStudents = await Student.find();
@@ -67,7 +70,14 @@ router.post("/students", async (req, res) => {
 
 // Creating new student
 router.post("/students", async (req, res) => {
-  setHeaderObj();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   try {
     const exams = await Exam.find();
@@ -94,14 +104,28 @@ router.post("/students", async (req, res) => {
 
 // Getting one student
 router.get("/student/:id", getStudent, (req, res) => {
-  setHeaderObj();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   res.json(res.student);
 });
 
 // Updating one student
 router.patch("/student/:id", getStudent, async (req, res) => {
-  setHeaderObj();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   try {
     if (req.body.firstName != null) {
@@ -132,7 +156,14 @@ router.patch("/student/:id", getStudent, async (req, res) => {
 
 // Delete one student
 router.delete("/student/:id", getStudent, async (req, res) => {
-  setHeaderObj();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   try {
     await res.student.remove();
@@ -143,7 +174,14 @@ router.delete("/student/:id", getStudent, async (req, res) => {
 });
 
 async function getStudent(req, res, next) {
-  setHeaderObj();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
 
   let student;
   try {
