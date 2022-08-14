@@ -10,4 +10,4 @@ https://students-app-server-plum.vercel.app/api/students
 One Student details (get)
 Update Student Details and Grades (patch)
 Delete Student (delete)
-https://students-app-server-plum.vercel.app/api/student/:id
+https://students-app-server-plum.vercel.app/api/student/indexNumber
