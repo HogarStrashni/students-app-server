@@ -81,8 +81,8 @@ router.post("/students", async (req, res) => {
       gradeHistory: exams.map((item) => {
         return {
           subject: item.name,
-          grade: req.body.grade,
-          dateExam: req.body.dateExam,
+          grade: "",
+          dateExam: "",
         };
       }),
     });
