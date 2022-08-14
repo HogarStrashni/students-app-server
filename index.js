@@ -1,3 +1,6 @@
+//configure cors for using axios
+const cors = require("cors");
+
 //adding access to .env file
 require("dotenv").config();
 
@@ -18,5 +21,7 @@ const studentsRouter = require("./routes/students");
 app.use("/api", studentsRouter);
 
 app.listen(process.env.PORT || 3000, () => console.log("Server Started"));
+
+app.use(cors());
 
 module.exports = app;
