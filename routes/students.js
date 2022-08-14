@@ -148,7 +148,7 @@ async function getStudent(req, res, next) {
   );
   let student;
   try {
-    student = await Student.findById(req.params.id);
+    student = await Student.findById(req.params.indexNumber);
     if (student == null) {
       return res.status(404).json({ message: "Cannot find Student" });
     }
