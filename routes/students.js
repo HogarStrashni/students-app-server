@@ -146,9 +146,10 @@ async function getStudent(req, res, next) {
     "Access-Control-Allow-Methods",
     "PUT, POST, GET, DELETE, PATCH, OPTIONS"
   );
+
   let student;
   try {
-    student = await Student.find().select(req.params.indexNumber);
+    student = await Student.findById(req.params.indexNumber);
     if (student == null) {
       return res.status(404).json({ message: "Cannot find Student" });
     }
