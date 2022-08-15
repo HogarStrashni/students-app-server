@@ -4,13 +4,13 @@ GET https://students-app-server-plum.vercel.app/api/students
 ###
 
 //POST new Student
-POST https://students-app-server-plum.vercel.app/api/students
+POST https://students-app-server-plum.vercel.app/api/student/new
 Content-Type: application/json
 
 {
-  "firstName": "Bojana",
-  "lastName": "Goranovic",
-  "indexNumber": "09-2019",
+  "firstName": "Michael",
+  "lastName": "Rondo",
+  "indexNumber": "10-2010",
   "email": "boj.markovic@hotmail.com",
   "phone": "+387 65 999 999"
 }
@@ -18,17 +18,17 @@ Content-Type: application/json
 ###
 
 //GET unique Student
-GET http://localhost:3000/api/student/62f7a2418be45e3779da5dd2
+GET https://students-app-server-plum.vercel.app/api/student/34-1999
 
 ###
 
 //DELETE Student
-DELETE http://localhost:3000/api/student/62f77aa62f4b43d79065ba82
+DELETE https://students-app-server-plum.vercel.app/api/student/34-1999
 
 ###
 
 //EDIT Student
-PATCH http://localhost:3000/api/student/62f77b7f487227a9f4db5b60
+PATCH https://students-app-server-plum.vercel.app/api/student/34-1999
 Content-Type: application/json
 
 {

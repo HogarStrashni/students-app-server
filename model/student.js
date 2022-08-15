@@ -11,30 +11,33 @@ const gradeSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const studentSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
+const studentSchema = new mongoose.Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    indexNumber: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    gradeHistory: {
+      type: [gradeSchema],
+    },
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  indexNumber: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  phone: {
-    type: String,
-    required: true,
-  },
-  gradeHistory: {
-    type: [gradeSchema],
-  },
-});
+  { _id: true }
+);
 
 module.exports = mongoose.model("student", studentSchema);

@@ -52,7 +52,7 @@ router.post("/students", async (req, res) => {
 });
 
 // Creating new student
-router.post("/students", async (req, res) => {
+router.post("/student/new", async (req, res) => {
   try {
     const exams = await Exam.find();
     const allGrades = exams.map((item) => {
@@ -70,8 +70,14 @@ router.post("/students", async (req, res) => {
       phone: req.body.phone,
       gradeHistory: allGrades,
     });
-    const newStudent = await student.save();
-    res.status(201).json(newStudent);
+    if (!(await Student.findOne({ indexNumber: student.indexNumber }))) {
+      const newStudent = await student.save();
+      res.status(201).json(newStudent);
+    } else {
+      res.json({
+        message: "Added index number already exists... Change index number!",
+      });
+    }
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
