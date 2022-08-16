@@ -14,7 +14,7 @@ router.get("/students", async (req, res) => {
 });
 
 // Finding students by filter
-router.get("/students/search=:query", async (req, res) => {
+router.get("/students/q=:query", async (req, res) => {
   try {
     const query = req.params.query;
     const allStudents = await Student.find();
@@ -51,7 +51,7 @@ router.get("/students/search=:query", async (req, res) => {
 });
 
 // Creating new student
-router.post("/student/new", async (req, res) => {
+router.post("/students", async (req, res) => {
   try {
     const exams = await Exam.find();
     const allGrades = exams.map((item) => {

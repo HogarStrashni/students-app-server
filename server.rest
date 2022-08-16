@@ -4,7 +4,7 @@ GET https://students-app-server-plum.vercel.app/api/students
 ###
 
 //POST new Student
-POST https://students-app-server-plum.vercel.app/api/student/new
+POST https://students-app-server-plum.vercel.app/api/students
 Content-Type: application/json
 
 {
@@ -52,5 +52,5 @@ Content-Type: application/json
 ###
 
 //QUERING Students
-GET https://students-app-server-plum.vercel.app/api/students/serach=mar
+GET https://students-app-server-plum.vercel.app/api/students/q=mar
 
