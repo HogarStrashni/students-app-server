@@ -14,36 +14,35 @@ router.get("/students", async (req, res) => {
 });
 
 // Finding students by filter
-router.post("/students", async (req, res) => {
+router.get("/students/search=:query", async (req, res) => {
   try {
+    const query = req.params.query;
     const allStudents = await Student.find();
     const filteredStudents = allStudents.filter(
       (item) =>
         item.firstName
           .toString()
           .toLowerCase()
-          .includes(req.body.query.toString().toLowerCase()) ||
+          .includes(query.toString().toLowerCase()) ||
         item.lastName
           .toString()
           .toLowerCase()
-          .includes(req.body.query.toString().toLowerCase()) ||
+          .includes(query.toString().toLowerCase()) ||
         item.indexNumber
           .toString()
           .toLowerCase()
-          .includes(req.body.query.toString().toLowerCase()) ||
+          .includes(query.toString().toLowerCase()) ||
         item.email
           .toString()
           .toLowerCase()
-          .includes(req.body.query.toString().toLowerCase()) ||
+          .includes(query.toString().toLowerCase()) ||
         item.phone
           .toString()
           .toLowerCase()
-          .includes(req.body.query.toString().toLowerCase())
+          .includes(query.toString().toLowerCase())
     );
 
-    if (!req.body.query) {
-      res.status(200).json(allStudents);
-    } else {
+    if (query) {
       res.status(200).json(filteredStudents);
     }
   } catch (err) {

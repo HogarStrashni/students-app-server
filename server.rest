@@ -52,10 +52,5 @@ Content-Type: application/json
 ###
 
 //QUERING Students
-POST https://students-app-server-plum.vercel.app/api/students
-Content-Type: application/json
-
-{
-  "query": "mar"
-}
+GET https://students-app-server-plum.vercel.app/api/students/serach=mar
 
