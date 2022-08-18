@@ -14,7 +14,7 @@ router.get("/students", async (req, res) => {
 });
 
 // Finding students by filter
-router.get("/students/q=:query", async (req, res) => {
+router.get("/studentsq=:query", async (req, res) => {
   try {
     const query = req.params.query;
     const allStudents = await Student.find();
@@ -73,9 +73,9 @@ router.post("/students", async (req, res) => {
       const newStudent = await student.save();
       res.status(201).json(newStudent);
     } else {
-      res.json({
-        message: "Added index number already exists... Change index number!",
-      });
+      throw new Error(
+        "Added index number already exists... Change index number!"
+      );
     }
   } catch (err) {
     res.status(400).json({ message: err.message });
