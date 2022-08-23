@@ -21,6 +21,8 @@ app.use(express.json());
 
 const studentsRouter = require("./routes/students");
 app.use("/api", studentsRouter);
+const usersRouter = require("./routes/users");
+app.use("/api", usersRouter);
 
 app.listen(process.env.PORT || 3000, () => console.log("Server Started"));
 

@@ -53,3 +53,30 @@ Content-Type: application/json
 
 //QUERING Students
 GET https://students-app-server-plum.vercel.app/api/studentsq=mar
+
+###
+
+//  REGISTER and LOGIN  //
+
+###
+
+//REGISTER user
+POST http://localhost:4000/api/register
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "test"
+}
+
+###
+
+//LOGIN user
+POST http://localhost:4000/api/login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "test"
+}
+
