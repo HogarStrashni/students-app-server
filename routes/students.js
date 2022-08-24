@@ -3,6 +3,9 @@ const router = express.Router();
 const Student = require("../model/student");
 const Exam = require("../model/exam");
 
+const { authProtect } = require("./authMiddleware");
+const { authAdmin } = require("./authMiddleware");
+
 // Getting all students
 router.get("/students", async (req, res) => {
   try {
@@ -51,7 +54,7 @@ router.get("/studentsq=:query", async (req, res) => {
 });
 
 // Creating new student
-router.post("/students", async (req, res) => {
+router.post("/students", authProtect, authAdmin, async (req, res) => {
   try {
     const exams = await Exam.find();
     const allGrades = exams.map((item) => {
@@ -83,49 +86,62 @@ router.post("/students", async (req, res) => {
 });
 
 // Getting one student
-router.get("/student/:id", getStudent, (req, res) => {
+router.get("/student/:id", getStudent, authProtect, (req, res) => {
   res.json(res.student);
 });
 
 // Updating one student
-router.patch("/student/:id", getStudent, async (req, res) => {
-  try {
-    if (req.body.firstName != null) {
-      res.student.firstName = req.body.firstName;
-    }
-    if (req.body.lastName != null) {
-      res.student.lastName = req.body.lastName;
-    }
-    if (req.body.indexNumber != null) {
-      res.student.indexNumber = req.body.indexNumber;
-    }
-    if (req.body.email != null) {
-      res.student.email = req.body.email;
-    }
-    if (req.body.phone != null) {
-      res.student.phone = req.body.phone;
-    }
-    if (req.body.gradeHistory != null) {
-      res.student.gradeHistory = req.body.gradeHistory;
-    }
+router.patch(
+  "/student/:id",
+  getStudent,
+  authProtect,
+  authAdmin,
+  async (req, res) => {
+    try {
+      if (req.body.firstName != null) {
+        res.student.firstName = req.body.firstName;
+      }
+      if (req.body.lastName != null) {
+        res.student.lastName = req.body.lastName;
+      }
+      if (req.body.indexNumber != null) {
+        res.student.indexNumber = req.body.indexNumber;
+      }
+      if (req.body.email != null) {
+        res.student.email = req.body.email;
+      }
+      if (req.body.phone != null) {
+        res.student.phone = req.body.phone;
+      }
+      if (req.body.gradeHistory != null) {
+        res.student.gradeHistory = req.body.gradeHistory;
+      }
 
-    const updatedStudent = await res.student.save();
-    res.json(updatedStudent);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
+      const updatedStudent = await res.student.save();
+      res.json(updatedStudent);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
   }
-});
+);
 
 // Delete one student
-router.delete("/student/:id", getStudent, async (req, res) => {
-  try {
-    await res.student.remove();
-    res.json({ message: "Deleted Student" });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+router.delete(
+  "/student/:id",
+  getStudent,
+  authProtect,
+  authAdmin,
+  async (req, res) => {
+    try {
+      await res.student.remove();
+      res.json({ message: "Deleted Student" });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
   }
-});
+);
 
+// Middleware for get unique student
 async function getStudent(req, res, next) {
   let student;
   try {
@@ -136,7 +152,6 @@ async function getStudent(req, res, next) {
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
-
   res.student = student;
   next();
 }
