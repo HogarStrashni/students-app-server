@@ -29,17 +29,16 @@ const authProtect = async (req, res, next) => {
 };
 
 const authAdmin = async (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decoded = jwt.decode(token);
   try {
-    if (decoded.payload.role !== "admin") {
+    const decoded = jwt.decode(req.headers.authorization.split(" ")[1]);
+    if (decoded.role === "admin") {
+      next();
+    } else {
       throw new Error("Not authorized!");
     }
   } catch (err) {
     res.status(403).json({ message: err.message });
   }
-
-  next();
 };
 
 module.exports = { authProtect, authAdmin };

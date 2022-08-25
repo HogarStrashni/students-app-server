@@ -1,12 +1,16 @@
-//GET all Students
-GET https://students-app-server-plum.vercel.app/api/students
+@URL_PATH = http://localhost:4000/api/
+
+######  STUDENT LIST  ######
+
+// GET all Students
+GET {{URL_PATH}}students
 
 ###
 
-//POST new Student
-POST https://students-app-server-plum.vercel.app/api/students
+// POST new Student
+POST {{URL_PATH}}students
 Content-Type: application/json
-
+Authorization: Bearer xxx
 {
   "firstName": "Michael",
   "lastName": "Rondo",
@@ -17,19 +21,20 @@ Content-Type: application/json
 
 ###
 
-//GET unique Student
-GET https://students-app-server-plum.vercel.app/api/student/34-1999
+// GET unique Student
+GET {{URL_PATH}}student/29-2006
+Authorization: Bearer xxx
 
 ###
 
-//DELETE Student
-DELETE https://students-app-server-plum.vercel.app/api/student/34-1999
+// DELETE Student
+DELETE {{URL_PATH}}student/29-2006
+Authorization: Bearer xxx
 
-###
-
-//EDIT Student
-PATCH https://students-app-server-plum.vercel.app/api/student/34-1999
+// EDIT Student
+PATCH {{URL_PATH}}student/29-2006
 Content-Type: application/json
+Authorization: Bearer xxx
 
 {
   "firstName": "Marija",
@@ -51,17 +56,17 @@ Content-Type: application/json
 
 ###
 
-//QUERING Students
-GET https://students-app-server-plum.vercel.app/api/studentsq=mar
+// QUERING Students
+GET {{URL_PATH}}studentsq=mar
 
 ###
 
-//  REGISTER and LOGIN  //
+######  REGISTER and LOGIN  ######
 
 ###
 
-//REGISTER user
-POST http://localhost:4000/api/register
+// REGISTER user
+POST {{URL_PATH}}register
 Content-Type: application/json
 
 {
@@ -71,8 +76,8 @@ Content-Type: application/json
 
 ###
 
-//LOGIN user
-POST http://localhost:4000/api/login
+// LOGIN user
+POST {{URL_PATH}}login
 Content-Type: application/json
 
 {
