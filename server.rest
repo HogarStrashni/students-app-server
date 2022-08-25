@@ -1,4 +1,4 @@
-@URL_PATH = http://localhost:4000/api/
+@URL_PATH = https://students-app-server-zeta.vercel.app/api/
 
 ######  STUDENT LIST  ######
 
