@@ -8,47 +8,46 @@ const { authProtect, authAdmin } = require("./authMiddleware");
 // Getting all students
 router.get("/students", async (req, res) => {
   try {
-    const allStudents = await Student.find();
-    res.status(200).json(allStudents);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
+    // Pagination: 20 students/page
+    const searchParam = req.query.q;
+    const pageNum = Number(req.query.page);
 
-// Finding students by filter
-router.get("/studentsq=:query", async (req, res) => {
-  try {
-    const query = req.params.query;
-    const allStudents = await Student.find();
-    const filteredStudents = allStudents.filter(
-      (item) =>
-        item.firstName
-          .toString()
-          .toLowerCase()
-          .includes(query.toString().toLowerCase()) ||
-        item.lastName
-          .toString()
-          .toLowerCase()
-          .includes(query.toString().toLowerCase()) ||
-        item.indexNumber
-          .toString()
-          .toLowerCase()
-          .includes(query.toString().toLowerCase()) ||
-        item.email
-          .toString()
-          .toLowerCase()
-          .includes(query.toString().toLowerCase()) ||
-        item.phone
-          .toString()
-          .toLowerCase()
-          .includes(query.toString().toLowerCase())
+    let allStudents;
+    if (!searchParam) {
+      allStudents = await Student.find();
+    } else {
+      allStudents = await Student.find({
+        $or: [
+          { firstName: { $regex: searchParam, $options: "i" } },
+          { lastName: { $regex: searchParam, $options: "i" } },
+          { indexNumber: { $regex: searchParam, $options: "i" } },
+          { email: { $regex: searchParam, $options: "i" } },
+          { phone: { $regex: searchParam, $options: "i" } },
+        ],
+      });
+    }
+
+    const startIndexPage = (pageNum - 1) * 20;
+    const endIndexPage = pageNum * 20;
+
+    // For adding Previous and Next page
+    const studentsPage = {};
+
+    studentsPage.currentPage = {
+      page: pageNum,
+    };
+    studentsPage.totalPages = {
+      page: Math.ceil(allStudents.length / 20),
+    };
+
+    studentsPage.resultStudents = allStudents.slice(
+      startIndexPage,
+      endIndexPage
     );
 
-    if (query) {
-      res.status(200).json(filteredStudents);
-    }
+    res.status(200).json(studentsPage);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 

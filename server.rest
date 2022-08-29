@@ -1,9 +1,9 @@
-@URL_PATH = https://students-app-server-zeta.vercel.app/api/
+@URL_PATH = http://localhost:4000/api/
 
 ######  STUDENT LIST  ######
 
-// GET all Students
-GET {{URL_PATH}}students
+// GET all Students / GET Students by query
+GET {{URL_PATH}}students?q=mar&page=1
 
 ###
 
@@ -53,13 +53,6 @@ Authorization: Bearer xxx
     }
   ]
 }
-
-###
-
-// QUERING Students
-GET {{URL_PATH}}studentsq=mar
-
-###
 
 ######  REGISTER and LOGIN  ######
 
