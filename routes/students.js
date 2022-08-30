@@ -33,12 +33,9 @@ router.get("/students", async (req, res) => {
     // For adding Previous and Next page
     const studentsPage = {};
 
-    studentsPage.currentPage = {
-      page: pageNum,
-    };
-    studentsPage.totalPages = {
-      page: Math.ceil(allStudents.length / 20),
-    };
+    studentsPage.currentPage = pageNum;
+
+    studentsPage.totalPages = Math.ceil(allStudents.length / 20);
 
     studentsPage.resultStudents = allStudents.slice(
       startIndexPage,
