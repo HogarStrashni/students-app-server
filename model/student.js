@@ -5,8 +5,8 @@ const gradeSchema = new mongoose.Schema(
     subject: {
       type: String,
     },
-    grade: { type: String, default: "" },
-    dateExam: { type: String, default: "" },
+    grade: { type: Number, min: 6, max: 10, default: "" },
+    dateExam: { type: Date, default: "" },
   },
   { _id: false }
 );
