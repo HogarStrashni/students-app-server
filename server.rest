@@ -3,7 +3,7 @@
 ######  STUDENT LIST  ######
 
 // GET all Students / GET Students by query
-GET {{URL_PATH}}students?q=mar&page=1
+GET {{URL_PATH}}students?q=mar&page=1&limit=5
 
 ###
 

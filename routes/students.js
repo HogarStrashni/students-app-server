@@ -8,9 +8,9 @@ const { authProtect, authAdmin } = require("./authMiddleware");
 // Getting all students
 router.get("/students", async (req, res) => {
   try {
-    // Pagination: 20 students/page
     const searchParam = req.query.q;
     const pageNum = Number(req.query.page);
+    const limitNum = Number(req.query.limit);
 
     let allStudents;
     if (!searchParam) {
@@ -27,15 +27,15 @@ router.get("/students", async (req, res) => {
       });
     }
 
-    const startIndexPage = (pageNum - 1) * 20;
-    const endIndexPage = pageNum * 20;
+    const startIndexPage = (pageNum - 1) * limitNum;
+    const endIndexPage = pageNum * limitNum;
 
-    // For adding Previous and Next page
+    // Adding an object to store the necessary data
     const studentsPage = {};
 
     studentsPage.currentPage = pageNum;
 
-    studentsPage.totalPages = Math.ceil(allStudents.length / 20);
+    studentsPage.totalPages = Math.ceil(allStudents.length / limitNum);
 
     studentsPage.resultStudents = allStudents.slice(
       startIndexPage,

@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 
-//adding access to .env file
+// Adding access to .env file
 require("dotenv").config();
 
-//configure cors for using axios
+// Configure cors for using axios
 const cors = require("cors");
 
 app.use(cors());
