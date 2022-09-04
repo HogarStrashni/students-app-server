@@ -63,9 +63,9 @@ POST {{URL_PATH}}register
 Content-Type: application/json
 
 {
-  "email": "test11111@test.com",
+  "email": "test@test.com",
   "password": "test",
-  "passwordConf": "nontest"
+  "passwordConf": "test"
 }
 
 ###

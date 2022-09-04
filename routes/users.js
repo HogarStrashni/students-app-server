@@ -14,10 +14,7 @@ router.post("/register", async (req, res) => {
     if (password !== passwordConf) {
       throw new Error("Please make sure your passwords match.");
     }
-    let userExists;
-    if (password === passwordConf) {
-      userExists = await User.findOne({ email });
-    }
+    const userExists = await User.findOne({ email });
     if (userExists) {
       throw new Error("User already exists!");
     }
