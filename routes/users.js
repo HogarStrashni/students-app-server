@@ -7,11 +7,11 @@ const User = require("../model/user");
 
 router.post("/register", async (req, res) => {
   try {
-    const { email, password, passwordConf } = req.body;
+    const { email, password, passwordConfirm } = req.body;
     if (!email || !password) {
       throw new Error("You must add all fields!");
     }
-    if (password !== passwordConf) {
+    if (password !== passwordConfirm) {
       throw new Error("Make sure your passwords match!");
     }
     const userExists = await User.findOne({ email });

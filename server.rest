@@ -65,7 +65,7 @@ Content-Type: application/json
 {
   "email": "test@test.com",
   "password": "test",
-  "passwordConf": "test"
+  "passwordConfirm": "test"
 }
 
 ###
