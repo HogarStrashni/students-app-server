@@ -8,7 +8,7 @@ const User = require("../model/user");
 router.post("/register", async (req, res) => {
   try {
     const { email, password, passwordConf } = req.body;
-    if (!email || !password || !passwordConf) {
+    if (!email || !password) {
       throw new Error("You must add all fields!");
     }
     if (password !== passwordConf) {
