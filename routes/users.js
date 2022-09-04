@@ -14,9 +14,11 @@ router.post("/register", async (req, res) => {
     if (password !== passwordConf) {
       throw new Error("Please make sure your passwords match.");
     }
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      throw new Error("User already exists!");
+    if (password === passwordConf) {
+      const userExists = await User.findOne({ email });
+      if (userExists) {
+        throw new Error("User already exists!");
+      }
     }
     //Hash password
     const salt = await bcrypt.genSalt(10);
