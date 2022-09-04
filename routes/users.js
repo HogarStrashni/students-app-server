@@ -8,17 +8,18 @@ const User = require("../model/user");
 router.post("/register", async (req, res) => {
   try {
     const { email, password, passwordConf } = req.body;
-    if (!email || !password) {
+    if (!email || !password || !passwordConf) {
       throw new Error("You must add all fields!");
-    }
-    if (password === passwordConf) {
-      const userExists = await User.findOne({ email });
-      if (userExists) {
-        throw new Error("User already exists!");
-      }
     }
     if (password !== passwordConf) {
       throw new Error("Please make sure your passwords match.");
+    }
+    let userExists;
+    if (password === passwordConf) {
+      userExists = await User.findOne({ email });
+    }
+    if (userExists) {
+      throw new Error("User already exists!");
     }
     //Hash password
     const salt = await bcrypt.genSalt(10);
