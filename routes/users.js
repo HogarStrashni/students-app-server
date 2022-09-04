@@ -11,12 +11,12 @@ router.post("/register", async (req, res) => {
     if (!email || !password) {
       throw new Error("You must add all fields!");
     }
+    if (password !== passwordConf) {
+      throw new Error("Please make sure your passwords match.");
+    }
     const userExists = await User.findOne({ email });
     if (userExists) {
       throw new Error("User already exists!");
-    }
-    if (password !== passwordConf) {
-      throw new Error("Please make sure your passwords match.");
     }
     //Hash password
     const salt = await bcrypt.genSalt(10);
