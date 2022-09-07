@@ -4,6 +4,7 @@ const Student = require("../model/student");
 const Exam = require("../model/exam");
 
 const { authProtect, authAdmin } = require("./authMiddleware");
+const { studentValidation } = require("../validation/usersValidation");
 
 // Getting all students
 router.get("/students", async (req, res) => {
@@ -49,36 +50,42 @@ router.get("/students", async (req, res) => {
 });
 
 // Creating new student
-router.post("/students", authProtect, authAdmin, async (req, res) => {
-  try {
-    const exams = await Exam.find();
-    const allGrades = exams.map((item) => {
-      return {
-        subject: item.name,
-        grade: "",
-        dateExam: "",
-      };
-    });
-    const student = new Student({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      indexNumber: req.body.indexNumber,
-      email: req.body.email,
-      phone: req.body.phone,
-      gradeHistory: allGrades,
-    });
-    if (!(await Student.findOne({ indexNumber: student.indexNumber }))) {
-      const newStudent = await student.save();
-      res.status(201).json(newStudent);
-    } else {
-      throw new Error(
-        "Added index number already exists... Change index number!"
-      );
+router.post(
+  "/students",
+  authProtect,
+  authAdmin,
+  studentValidation,
+  async (req, res) => {
+    try {
+      const exams = await Exam.find();
+      const allGrades = exams.map((item) => {
+        return {
+          subject: item.name,
+          grade: "",
+          dateExam: "",
+        };
+      });
+      const student = new Student({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        indexNumber: req.body.indexNumber,
+        email: req.body.email,
+        phone: req.body.phone,
+        gradeHistory: allGrades,
+      });
+      if (!(await Student.findOne({ indexNumber: student.indexNumber }))) {
+        const newStudent = await student.save();
+        res.status(201).json(newStudent);
+      } else {
+        throw new Error(
+          "Added index number already exists... Change index number!"
+        );
+      }
+    } catch (err) {
+      res.status(400).json({ message: err.message });
     }
-  } catch (err) {
-    res.status(400).json({ message: err.message });
   }
-});
+);
 
 // Getting one student
 router.get("/student/:id", getStudent, authProtect, (req, res) => {
@@ -91,6 +98,7 @@ router.patch(
   getStudent,
   authProtect,
   authAdmin,
+  studentValidation,
   async (req, res) => {
     try {
       if (req.body.firstName != null) {

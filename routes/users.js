@@ -1,19 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const { userValidation } = require("../validation/usersValidation");
+
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../model/user");
 
-router.post("/register", async (req, res) => {
+router.post("/register", userValidation, async (req, res) => {
   try {
-    const { email, password, passwordConfirm } = req.body;
-    if (!email || !password) {
-      throw new Error("You must add all fields!");
-    }
-    if (password !== passwordConfirm) {
-      throw new Error("Make sure your passwords match!");
-    }
+    const { email, password } = req.body;
     const userExists = await User.findOne({ email });
     if (userExists) {
       throw new Error("User already exists! Try again!");
