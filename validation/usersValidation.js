@@ -1,9 +1,9 @@
 // Validate new User on registration
-const emailRegex = /^[^\s@]+@[^\s@\.]+\.[^\s@\.]+$/;
+const emailRegex = /^[^\s@.]+@[^\s@.]+\.[^\s@.]+$/;
 const passwordRegex = /\w{4,}/;
 
 // Validate new Student data
-const indexRegex = /^\d+\-\d{4}$/;
+const indexRegex = /^\d+-\d{4}$/;
 
 const userValidation = async (req, res, next) => {
   try {
