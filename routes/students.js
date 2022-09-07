@@ -98,7 +98,6 @@ router.patch(
   getStudent,
   authProtect,
   authAdmin,
-  studentValidation,
   async (req, res) => {
     try {
       if (req.body.firstName != null) {
