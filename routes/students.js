@@ -4,7 +4,10 @@ const Student = require("../model/student");
 const Exam = require("../model/exam");
 
 const { authProtect, authAdmin } = require("./authMiddleware");
-const { studentValidation } = require("../validation/usersValidation");
+const {
+  studentAddValidation,
+  studentEditValidation,
+} = require("../validation/usersValidation");
 
 // Getting all students
 router.get("/students", async (req, res) => {
@@ -54,7 +57,7 @@ router.post(
   "/students",
   authProtect,
   authAdmin,
-  studentValidation,
+  studentAddValidation,
   async (req, res) => {
     try {
       const exams = await Exam.find();
@@ -98,6 +101,7 @@ router.patch(
   getStudent,
   authProtect,
   authAdmin,
+  studentEditValidation,
   async (req, res) => {
     try {
       if (req.body.firstName != null) {

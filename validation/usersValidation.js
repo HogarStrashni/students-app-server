@@ -26,7 +26,7 @@ const userValidation = async (req, res, next) => {
   }
 };
 
-const studentValidation = async (req, res, next) => {
+const studentAddValidation = async (req, res, next) => {
   try {
     const { indexNumber, email } = req.body;
     if (!indexRegex.test(indexNumber)) {
@@ -41,4 +41,19 @@ const studentValidation = async (req, res, next) => {
   }
 };
 
-module.exports = { userValidation, studentValidation };
+const studentEditValidation = async (req, res, next) => {
+  try {
+    if (!emailRegex.test(req.body.email)) {
+      throw new Error("You must enter valid email address!");
+    }
+    next();
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+module.exports = {
+  userValidation,
+  studentAddValidation,
+  studentEditValidation,
+};
