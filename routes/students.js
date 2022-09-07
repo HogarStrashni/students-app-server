@@ -7,7 +7,7 @@ const { authProtect, authAdmin } = require("./authMiddleware");
 const {
   studentAddValidation,
   studentEditValidation,
-} = require("../validation/usersValidation");
+} = require("../validation/inputValidation");
 
 // Getting all students
 router.get("/students", async (req, res) => {
