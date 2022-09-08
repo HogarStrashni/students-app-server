@@ -31,8 +31,10 @@ Authorization: Bearer xxx
 DELETE {{URL_PATH}}student/29-2006
 Authorization: Bearer xxx
 
+###
+
 // EDIT Student
-PATCH {{URL_PATH}}student/29-2006
+PATCH {{URL_PATH}}student/97-2007
 Content-Type: application/json
 Authorization: Bearer xxx
 
@@ -53,6 +55,8 @@ Authorization: Bearer xxx
     }
   ]
 }
+
+###
 
 ######  REGISTER and LOGIN  ######
 

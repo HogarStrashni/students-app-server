@@ -1,5 +1,5 @@
 // Validate new User on registration
-const emailRegex = /^[^\s@.]+@[^\s@.]+\.[^\s@.]+$/;
+const emailRegex = /^[^\s@]+@[^\s@.]+\.[^\s@.]{3}$/;
 const passwordRegex = /\S{4,}/;
 
 // Validate new Student data
