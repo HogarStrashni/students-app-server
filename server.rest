@@ -11,6 +11,7 @@ GET {{URL_PATH}}students?q=mar&page=1&limit=5
 POST {{URL_PATH}}students
 Content-Type: application/json
 Authorization: Bearer xxx
+
 {
   "firstName": "Michael",
   "lastName": "Rondo",

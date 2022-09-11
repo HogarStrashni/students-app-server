@@ -16,31 +16,29 @@ router.get("/students", async (req, res) => {
     const pageNum = Number(req.query.page);
     const limitNum = Number(req.query.limit);
 
-    let allStudents;
-    if (!searchParam) {
-      allStudents = await Student.find();
-    } else {
-      allStudents = await Student.find({
-        $or: [
-          { firstName: { $regex: searchParam, $options: "i" } },
-          { lastName: { $regex: searchParam, $options: "i" } },
-          { indexNumber: { $regex: searchParam, $options: "i" } },
-          { email: { $regex: searchParam, $options: "i" } },
-          { phone: { $regex: searchParam, $options: "i" } },
-        ],
-      });
-    }
+    allStudents = await Student.find({
+      $or: [
+        { firstName: { $regex: searchParam, $options: "i" } },
+        { lastName: { $regex: searchParam, $options: "i" } },
+        { indexNumber: { $regex: searchParam, $options: "i" } },
+        { email: { $regex: searchParam, $options: "i" } },
+        { phone: { $regex: searchParam, $options: "i" } },
+      ],
+    });
+    // studentsLength = await Student.find();
 
+    // Adding an object to store all data
+    const studentsPage = {};
+    // Number of all Students
+    const sumaryStudents = await Student.countDocuments({});
+    // Pagination
     const startIndexPage = (pageNum - 1) * limitNum;
     const endIndexPage = pageNum * limitNum;
-
-    // Adding an object to store the necessary data
-    const studentsPage = {};
-
+    // Response all Data
+    studentsPage.sumaryNumber = sumaryStudents;
+    studentsPage.sumarySearch = allStudents.length;
     studentsPage.currentPage = pageNum;
-
     studentsPage.totalPages = Math.ceil(allStudents.length / limitNum);
-
     studentsPage.resultStudents = allStudents.slice(
       startIndexPage,
       endIndexPage
@@ -75,6 +73,7 @@ router.post(
         email: req.body.email,
         phone: req.body.phone,
         gradeHistory: allGrades,
+        averageGrade: 0.0,
       });
       if (!(await Student.findOne({ indexNumber: student.indexNumber }))) {
         const newStudent = await student.save();
@@ -122,6 +121,19 @@ router.patch(
       if (req.body.gradeHistory != null) {
         res.student.gradeHistory = req.body.gradeHistory;
       }
+
+      // Implementig average GPA
+      const allGradesList = res.student.gradeHistory
+        .map((item) => item.grade)
+        .filter((item) => item);
+      const numberPassedExam = allGradesList.length;
+      res.student.averageGrade =
+        numberPassedExam > 0
+          ? (
+              allGradesList.reduce((acc, item) => (acc += item), 0) /
+              numberPassedExam
+            ).toFixed(2)
+          : "0.00";
 
       const updatedStudent = await res.student.save();
       res.json(updatedStudent);

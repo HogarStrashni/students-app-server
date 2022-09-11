@@ -36,6 +36,10 @@ const studentSchema = new mongoose.Schema(
     gradeHistory: {
       type: [gradeSchema],
     },
+    averageGrade: {
+      type: Number,
+      required: true,
+    },
   },
   { _id: true }
 );
