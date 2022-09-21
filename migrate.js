@@ -10,9 +10,9 @@ db.once("open", () => {
 });
 
 const getStudents = async () => {
-  allStudents = await Student.find();
+  const allStudents = await Student.find();
   for (let i = 0; i < allStudents.length; i++) {
-    allGradesList = allStudents[i].gradeHistory
+    const allGradesList = allStudents[i].gradeHistory
       .map((item) => item.grade)
       .filter((item) => item);
 

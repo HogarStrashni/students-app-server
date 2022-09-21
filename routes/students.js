@@ -3,11 +3,13 @@ const router = express.Router();
 const Student = require("../model/student");
 const Exam = require("../model/exam");
 
-const { authProtect, authAdmin } = require("./authMiddleware");
+const { getStudent } = require("../middlewares/studentById");
+
+const { authProtect, authAdmin } = require("../middlewares/authMiddleware");
 const {
-  studentAddValidation,
+  indexNumValidation,
   studentEditValidation,
-} = require("../validation/inputValidation");
+} = require("../middlewares/studentValidation");
 
 // Getting all students
 router.get("/students", async (req, res) => {
@@ -16,7 +18,7 @@ router.get("/students", async (req, res) => {
     const pageNum = Number(req.query.page);
     const limitNum = Number(req.query.limit);
 
-    allStudents = await Student.find({
+    const allStudents = await Student.find({
       $or: [
         { firstName: { $regex: searchParam, $options: "i" } },
         { lastName: { $regex: searchParam, $options: "i" } },
@@ -25,7 +27,6 @@ router.get("/students", async (req, res) => {
         { phone: { $regex: searchParam, $options: "i" } },
       ],
     });
-    // studentsLength = await Student.find();
 
     // Adding an object to store all data
     const studentsPage = {};
@@ -55,7 +56,8 @@ router.post(
   "/students",
   authProtect,
   authAdmin,
-  studentAddValidation,
+  indexNumValidation,
+  studentEditValidation,
   async (req, res) => {
     try {
       const exams = await Exam.find();
@@ -158,20 +160,5 @@ router.delete(
     }
   }
 );
-
-// Middleware for get unique student
-async function getStudent(req, res, next) {
-  let student;
-  try {
-    student = await Student.findOne({ indexNumber: req.params.id });
-    if (student == null) {
-      return res.status(404).json({ message: "Cannot find Student" });
-    }
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-  res.student = student;
-  next();
-}
 
 module.exports = router;
