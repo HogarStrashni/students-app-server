@@ -6,19 +6,19 @@ FOR STUDENTS
 
 All Students List / Filter Students by Query (get) <br />
 Adding New Student (post) <br />
-https://students-app-server-zeta.vercel.app/api/students
+https://students-app-server-omega.vercel.app/api/students
 
 One Student details (get) <br />
 Update Student Details and Grades (patch) <br />
 Delete Student (delete) <br />
-https://students-app-server-zeta.vercel.app/api/student/*indexNumber
+https://students-app-server-omega.vercel.app/api/student/*indexNumber
 
 FOR USERS
 
 Register user (post) <br />
-https://students-app-server-zeta.vercel.app/api/register
+https://students-app-server-omega.vercel.app/api/register
 
 Login user (post) <br />
-https://students-app-server-zeta.vercel.app/api/login
+https://students-app-server-omega.vercel.app/api/login
 
 helpFile: server.rest
